@@ -1,0 +1,20 @@
+issues:
+  exclude-use-default: false
+  max-issues-per-linter: 0
+  max-same-issues: 0
+linters:
+  enable:
+    - gofumpt
+    - nolintlint
+    - paralleltest
+    - revive
+linters-settings:
+  errcheck:
+    exclude-functions:
+      - (*github.com/cenkalti/rain/torrent.Session).Close
+  govet:
+    disable:
+      - fieldalignment
+    enable-all: true
+output:
+  sort-results: true
