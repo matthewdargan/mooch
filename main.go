@@ -37,6 +37,8 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
+	"slices"
+	"syscall"
 
 	"github.com/cenkalti/rain/torrent"
 	"github.com/matthewdargan/epify/media"
@@ -104,6 +106,21 @@ func main() {
 		for i, p := range ps {
 			ps[i] = filepath.Join(tcfg.DataDir, p)
 		}
+		ps = slices.DeleteFunc(ps, func(s string) bool {
+			fi, err := os.Stat(s)
+			if err != nil {
+				return true
+			}
+			sys := fi.Sys()
+			if sys == nil {
+				return false
+			}
+			stat, ok := sys.(*syscall.Stat_t)
+			if !ok {
+				return false
+			}
+			return stat.Nlink > 1
+		})
 		a := media.Addition{SeasonDir: *f.DstDir, Episodes: ps}
 		if err = media.AddEpisodes(a); err != nil {
 			log.Print(err)
