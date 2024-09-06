@@ -1,10 +1,10 @@
 module github.com/matthewdargan/mooch
 
-go 1.23.0
+go 1.23.1
 
 require (
-	github.com/cenkalti/rain v1.12.17
-	github.com/matthewdargan/epify v0.4.1
+	github.com/cenkalti/rain v1.12.19
+	github.com/matthewdargan/epify v0.4.2
 	github.com/mmcdole/gofeed v1.3.0
 )
 
@@ -15,7 +15,7 @@ require (
 	github.com/cenkalti/log v1.0.0 // indirect
 	github.com/gofrs/uuid v4.4.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20210331224755-41bb18bfe9da // indirect
-	github.com/google/btree v1.1.2 // indirect
+	github.com/google/btree v1.1.3 // indirect
 	github.com/hashicorp/errwrap v1.1.0 // indirect
 	github.com/hashicorp/go-multierror v1.1.1 // indirect
 	github.com/jackpal/bencode-go v1.0.2 // indirect
@@ -38,13 +38,13 @@ require (
 	github.com/spaolacci/murmur3 v1.1.0 // indirect
 	github.com/youtube/vitess v3.0.0-rc.3+incompatible // indirect
 	github.com/zeebo/bencode v1.0.0 // indirect
-	go.etcd.io/bbolt v1.3.10 // indirect
-	golang.org/x/crypto v0.26.0 // indirect
-	golang.org/x/exp v0.0.0-20240808152545-0cdaa3abc0fa // indirect
-	golang.org/x/net v0.28.0 // indirect
+	go.etcd.io/bbolt v1.3.11 // indirect
+	golang.org/x/crypto v0.27.0 // indirect
+	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
+	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
-	golang.org/x/sys v0.24.0 // indirect
-	golang.org/x/text v0.17.0 // indirect
+	golang.org/x/sys v0.25.0 // indirect
+	golang.org/x/text v0.18.0 // indirect
 	gopkg.in/check.v1 v0.0.0-20161208181325-20d25e280405 // indirect
 	lukechampine.com/blake3 v1.3.0 // indirect
 )

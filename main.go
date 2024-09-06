@@ -107,8 +107,8 @@ func main() {
 			ps[i] = filepath.Join(tcfg.DataDir, p)
 		}
 		ps = slices.DeleteFunc(ps, func(s string) bool {
-			fi, err := os.Stat(s)
-			if err != nil {
+			fi, sErr := os.Stat(s)
+			if sErr != nil {
 				return true
 			}
 			sys := fi.Sys()

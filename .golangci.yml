@@ -12,6 +12,7 @@ linters-settings:
   errcheck:
     exclude-functions:
       - (*github.com/cenkalti/rain/torrent.Session).Close
+      - (*os.File).Close
   govet:
     disable:
       - fieldalignment
