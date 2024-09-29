@@ -14,47 +14,6 @@
   outputs = inputs:
     inputs.parts.lib.mkFlake {inherit inputs;} {
       imports = [inputs.pre-commit-hooks.flakeModule];
-      flake.homeModules.mooch = {
-        config,
-        lib,
-        pkgs,
-        ...
-      }: let
-        cfg = config.mooch;
-      in {
-        config = lib.mkIf cfg.enable {
-          systemd.user.services.mooch = {
-            Install.WantedBy = ["default.target"];
-            Service = {
-              ExecStart = "${cfg.package}/bin/mooch";
-              Type = "oneshot";
-            };
-            Unit.Description = "Download and organize torrents from RSS feeds";
-          };
-          systemd.user.timers.mooch = {
-            Install.WantedBy = ["timers.target"];
-            Timer = {
-              OnCalendar = cfg.timer.onCalendar;
-              Persistent = "true";
-            };
-            Unit.Description = "mooch.service";
-          };
-        };
-        options.mooch = {
-          enable = lib.mkEnableOption "Enable mooch service";
-          package = lib.mkOption {
-            default = inputs.self.packages.${pkgs.system}.mooch;
-            type = lib.types.package;
-          };
-          timer = {
-            enable = lib.mkEnableOption "Enable mooch timer";
-            onCalendar = lib.mkOption {
-              default = "daily";
-              type = lib.types.str;
-            };
-          };
-        };
-      };
       perSystem = {
         config,
         inputs',
