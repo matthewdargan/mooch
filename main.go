@@ -26,7 +26,8 @@
 //	    },
 //	    {
 //	      "url": "https://another.org/feed?category=fantasy",
-//	      "pattern": "Ongoing Show - S03E(\\d+) \\[720p\\]"
+//	      "pattern": "Ongoing Show - S03E(\\d+) \\[720p\\]",
+//	      "dst_dir": "~/Media/Ongoing Show/Season 03"
 //	    }
 //	  ]
 //	}
@@ -117,7 +118,7 @@ func main() {
 		<-t.NotifyComplete()
 	}
 	for _, f := range cfg.Feeds {
-		if f.DstDir == nil || f.torr == nil {
+		if f.torr == nil {
 			continue
 		}
 		ps, err := f.torr.Files()
@@ -147,7 +148,7 @@ func main() {
 				eps = append(eps, name)
 			}
 		}
-		a := media.Addition{SeasonDir: *f.DstDir, Episodes: eps}
+		a := media.Addition{SeasonDir: f.DstDir, Episodes: eps}
 		if err = media.AddEpisodes(a); err != nil {
 			log.Print(err)
 		}
@@ -160,9 +161,9 @@ type config struct {
 }
 
 type feed struct {
-	URL     string  `json:"url"`
-	Pattern string  `json:"pattern"`
-	DstDir  *string `json:"dst_dir"`
+	URL     string `json:"url"`
+	Pattern string `json:"pattern"`
+	DstDir  string `json:"dst_dir"`
 	regexp  *regexp.Regexp
 	link    string
 	torr    *torrent.Torrent

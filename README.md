@@ -25,7 +25,8 @@ similar to:
     },
     {
       "url": "https://another.org/feed?category=fantasy",
-      "pattern": "Ongoing Show - S03E(\\d+) \\[720p\\]"
+      "pattern": "Ongoing Show - S03E(\\d+) \\[720p\\]",
+      "dst_dir": "~/Media/Ongoing Show/Season 03"
     }
   ]
 }
