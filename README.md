@@ -2,12 +2,17 @@
 
 Mooch downloads and organizes torrents from RSS feeds.
 
+Usage:
+
+    mooch [file]
+
 Mooch matches torrent titles with regular expressions and adds them to a
 [Rain](https://github.com/cenkalti/rain) client session. Torrents are
 organized upon completion if destination directories are specified.
 
-The configuration file should exist at `$XDG_CONFIG_HOME/mooch/config.json`
-and should look similar to:
+The configuration file should either be passed as an argument or exist
+at $XDG_CONFIG_HOME/mooch/config.json. The configuration should look
+similar to:
 
 ```json
 {
