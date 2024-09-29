@@ -32,6 +32,8 @@ package main
 import (
 	"encoding/json"
 	"errors"
+	"flag"
+	"fmt"
 	"io"
 	"log"
 	"os"
@@ -45,14 +47,30 @@ import (
 	"github.com/mmcdole/gofeed"
 )
 
+func usage() {
+	fmt.Fprintf(os.Stderr, "usage: mooch [file]\n")
+	os.Exit(2)
+}
+
 func main() {
 	log.SetPrefix("mooch: ")
 	log.SetFlags(0)
-	dir, err := os.UserConfigDir()
-	if err != nil {
-		log.Fatal(err)
+	flag.Usage = usage
+	flag.Parse()
+	var name string
+	switch flag.NArg() {
+	case 0:
+		dir, err := os.UserConfigDir()
+		if err != nil {
+			log.Fatal(err)
+		}
+		name = filepath.Join(dir, "mooch", "config.json")
+	case 1:
+		name = flag.Arg(0)
+	default:
+		usage()
 	}
-	f, err := os.Open(filepath.Join(dir, "mooch", "config.json"))
+	f, err := os.Open(name)
 	if err != nil {
 		log.Fatal(err)
 	}
