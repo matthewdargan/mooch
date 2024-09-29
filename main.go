@@ -4,12 +4,17 @@
 
 // Mooch downloads and organizes torrents from RSS feeds.
 //
-// Mooch matches torrent titles with regular expressions and adds them to a
-// [Rain] client session. Torrents are organized upon completion if destination
-// directories are specified.
+// Usage:
 //
-// The configuration file should exist at
-// $XDG_CONFIG_HOME/mooch/config.json and should look similar to:
+//	mooch [file]
+//
+// Mooch matches torrent titles with regular expressions and adds them
+// to a [Rain] client session. Torrents are organized upon completion if
+// destination directories are specified.
+//
+// The configuration file should either be passed as an argument or
+// exist at $XDG_CONFIG_HOME/mooch/config.json. The configuration should
+// look similar to:
 //
 //	{
 //	  "data_dir": "~/Downloads",
@@ -39,7 +44,6 @@ import (
 	"os"
 	"path/filepath"
 	"regexp"
-	"slices"
 	"syscall"
 
 	"github.com/cenkalti/rain/torrent"
@@ -116,30 +120,34 @@ func main() {
 		if f.DstDir == nil || f.torr == nil {
 			continue
 		}
-		ps, err := f.torr.FilePaths()
+		ps, err := f.torr.Files()
 		if err != nil {
 			log.Print(err)
 			continue
 		}
-		for i, p := range ps {
-			ps[i] = filepath.Join(tcfg.DataDir, p)
-		}
-		ps = slices.DeleteFunc(ps, func(s string) bool {
-			fi, sErr := os.Stat(s)
+		eps := make([]string, 0, len(ps))
+		for _, p := range ps {
+			name := filepath.Join(tcfg.DataDir, p.Path())
+			log.Printf("p.Path() = %s, name = %s\n", p.Path(), name)
+			fi, sErr := os.Stat(name)
 			if sErr != nil {
-				return true
+				continue
 			}
 			sys := fi.Sys()
 			if sys == nil {
-				return false
+				eps = append(eps, name)
+				continue
 			}
 			stat, ok := sys.(*syscall.Stat_t)
 			if !ok {
-				return false
+				eps = append(eps, name)
+				continue
 			}
-			return stat.Nlink > 1
-		})
-		a := media.Addition{SeasonDir: *f.DstDir, Episodes: ps}
+			if stat.Nlink < 2 {
+				eps = append(eps, name)
+			}
+		}
+		a := media.Addition{SeasonDir: *f.DstDir, Episodes: eps}
 		if err = media.AddEpisodes(a); err != nil {
 			log.Print(err)
 		}

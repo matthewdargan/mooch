@@ -3,13 +3,13 @@ module github.com/matthewdargan/mooch
 go 1.23.1
 
 require (
-	github.com/cenkalti/rain v1.12.19
+	github.com/cenkalti/rain v1.13.0
 	github.com/matthewdargan/epify v0.4.2
 	github.com/mmcdole/gofeed v1.3.0
 )
 
 require (
-	github.com/PuerkitoBio/goquery v1.9.2 // indirect
+	github.com/PuerkitoBio/goquery v1.10.0 // indirect
 	github.com/andybalholm/cascadia v1.3.2 // indirect
 	github.com/cenkalti/backoff/v3 v3.2.2 // indirect
 	github.com/cenkalti/log v1.0.0 // indirect
@@ -40,7 +40,6 @@ require (
 	github.com/zeebo/bencode v1.0.0 // indirect
 	go.etcd.io/bbolt v1.3.11 // indirect
 	golang.org/x/crypto v0.27.0 // indirect
-	golang.org/x/exp v0.0.0-20240904232852-e7e105dedf7e // indirect
 	golang.org/x/net v0.29.0 // indirect
 	golang.org/x/sync v0.8.0 // indirect
 	golang.org/x/sys v0.25.0 // indirect
