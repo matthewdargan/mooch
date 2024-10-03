@@ -35,7 +35,7 @@
           pname = "mooch";
           src = ./.;
           vendorHash = "sha256-Br9YOuMrcr7WFmZSt9qDfi/0ym9y7dfKq6Czk7HK19s=";
-          version = "0.2.1";
+          version = "0.2.2";
         };
         pre-commit = {
           check.enable = false;
